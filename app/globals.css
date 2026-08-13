@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Okxs';
+  src: url('/fonts/okxs-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --background: #fcfcfb;
@@ -72,10 +80,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-okx: 'Okxs', sans-serif;
 }
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 html {
@@ -1073,8 +1090,7 @@ a {
   place-items: center;
   border-right: 1px solid var(--border);
   color: var(--accent);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .command-block code {

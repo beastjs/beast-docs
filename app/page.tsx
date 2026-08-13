@@ -174,7 +174,7 @@ export default function Home() {
               <div className='install-panel'>
                 <CornerMarks />
                 <div className='install-copy'>
-                  <span className='feature-icon orange'>
+                  <span className='feature-icon'>
                     <TerminalSquare size={17} aria-hidden='true' />
                   </span>
                   <div>
@@ -186,7 +186,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className='command-block'>
-                  <span className='command-prompt' aria-hidden='true'>
+                  <span className='command-prompt font-okx' aria-hidden='true'>
                     $
                   </span>
                   <code>{command}</code>

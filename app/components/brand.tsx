@@ -11,7 +11,7 @@ export function Brand({ compact = false }: BrandProps) {
       <Icon name='beast' className='size-6 text-accent!' />
       {compact ? null : (
         <>
-          <span className='brand-name'>Beast</span>
+          <span className='brand-name tracking-wider font-okx font-bold'>Beast</span>
         </>
       )}
     </Link>
