@@ -1,0 +1,161 @@
+"use client";
+
+import {
+  ArrowUpRight,
+  CornerDownLeft,
+  FileText,
+  Search as SearchIcon,
+  X,
+} from "lucide-react";
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { searchItems } from "../lib/docs";
+
+export function Search() {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [query, setQuery] = useState("");
+
+  function openSearch() {
+    const dialog = dialogRef.current;
+    if (!dialog || dialog.open) return;
+
+    dialog.showModal();
+    requestAnimationFrame(() => inputRef.current?.focus());
+  }
+
+  function closeSearch() {
+    dialogRef.current?.close();
+    setQuery("");
+  }
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        openSearch();
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  const results = useMemo(() => {
+    const normalized = query.trim().toLowerCase();
+    if (!normalized) return searchItems;
+
+    return searchItems.filter((item) =>
+      [item.label, item.description, item.group]
+        .filter(Boolean)
+        .some((value) => value?.toLowerCase().includes(normalized)),
+    );
+  }, [query]);
+
+  return (
+    <>
+      <button type="button" className="search-trigger" onClick={openSearch}>
+        <SearchIcon size={15} aria-hidden="true" />
+        <span>Search docs</span>
+        <kbd>
+          <span className="command-key">⌘</span>K
+        </kbd>
+      </button>
+
+      <dialog
+        ref={dialogRef}
+        className="search-dialog"
+        aria-label="Search Beast documentation"
+        onClick={(event) => {
+          if (event.currentTarget === event.target) closeSearch();
+        }}
+      >
+        <div className="search-panel">
+          <div className="search-input-wrap">
+            <SearchIcon size={18} aria-hidden="true" />
+            <input
+              ref={inputRef}
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search Beast docs…"
+              aria-label="Search Beast docs"
+            />
+            <button
+              type="button"
+              className="search-close"
+              onClick={closeSearch}
+              aria-label="Close search"
+            >
+              <X size={17} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="search-results" role="listbox" aria-label="Results">
+            {results.length > 0 ? (
+              results.map((item) => {
+                const content = (
+                  <>
+                    <span className="search-result-icon">
+                      <FileText size={16} aria-hidden="true" />
+                    </span>
+                    <span className="search-result-copy">
+                      <span className="search-result-label">{item.label}</span>
+                      <span className="search-result-description">
+                        {item.description}
+                      </span>
+                    </span>
+                    <span className="search-result-meta">
+                      <span>{item.group}</span>
+                      {item.external ? (
+                        <ArrowUpRight size={14} aria-hidden="true" />
+                      ) : (
+                        <CornerDownLeft size={14} aria-hidden="true" />
+                      )}
+                    </span>
+                  </>
+                );
+
+                return item.external ? (
+                  <a
+                    className="search-result"
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={item.href}
+                    onClick={closeSearch}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <Link
+                    className="search-result"
+                    href={item.href}
+                    key={item.href}
+                    onClick={closeSearch}
+                  >
+                    {content}
+                  </Link>
+                );
+              })
+            ) : (
+              <div className="search-empty">
+                <span>No pages found</span>
+                <p>Try a language feature, tool, or command.</p>
+              </div>
+            )}
+          </div>
+
+          <div className="search-footer">
+            <span>
+              <kbd>↵</kbd> open
+            </span>
+            <span>
+              <kbd>esc</kbd> close
+            </span>
+          </div>
+        </div>
+      </dialog>
+    </>
+  );
+}
