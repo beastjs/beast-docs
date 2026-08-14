@@ -34,6 +34,36 @@ export const icons = {
       '<path fill="currentColor" d="M13 21v2.5l-3-2l-3 2V21h-.5A3.5 3.5 0 0 1 3 17.5V5a3 3 0 0 1 3-3h14a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1zm0-2h6v-3H6.5a1.5 1.5 0 0 0 0 3H7v-2h6zm6-5V4H6v10.035Q6.245 14 6.5 14zM7 5h2v2H7zm0 3h2v2H7zm0 3h2v2H7z"/>',
     viewBox: '0 0 24 24',
     set: 'ri'
+  },
+  search: {
+    symbol:
+      '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m15.879 15.879l4.242 4.242M18 10.5a7.5 7.5 0 1 1-15 0a7.5 7.5 0 0 1 15 0Z"/>',
+    viewBox: '0 0 24 24',
+    set: 'mingcute'
+  },
+  close: {
+    symbol:
+      '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m5.636 5.637l12.728 12.728m-12.728 0L18.364 5.637"/>',
+    viewBox: '0 0 24 24',
+    set: 'mingcute'
+  },
+  document: {
+    symbol:
+      '<g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M4 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm14 0H6v16h12zM8 9a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1m1 4a1 1 0 1 0 0 2h3a1 1 0 1 0 0-2z"/></g>',
+    viewBox: '0 0 24 24',
+    set: 'mingcute'
+  },
+  'checkbox-checked': {
+    symbol:
+      '<path fill="currentColor" fill-rule="evenodd" d="M16.25 21A4.75 4.75 0 0 0 21 16.25v-8.5A4.75 4.75 0 0 0 16.25 3h-8.5A4.75 4.75 0 0 0 3 7.75v8.5A4.75 4.75 0 0 0 7.75 21zm.792-12.423a.75.75 0 0 0-1.06 0l-5.258 5.256-2.706-2.703a.75.75 0 1 0-1.06 1.062l3.237 3.232a.75.75 0 0 0 1.06 0l5.787-5.787a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/>',
+    viewBox: '0 0 24 24',
+    set: 'svg'
+  },
+  'checkbox-unchecked': {
+    symbol:
+      '<rect width="16.5" height="16.5" x="3.75" y="3.75" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" rx="4"/>',
+    viewBox: '0 0 24 24',
+    set: 'proicons'
   }
 }
 export type IconNameType = keyof typeof icons

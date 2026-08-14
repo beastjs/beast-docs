@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@/lib/icons'
-import { ArrowUpRight, CornerDownLeft, FileText, Search as SearchIcon, X } from 'lucide-react'
+import { ArrowUpRight, CornerDownLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { searchItems } from '../lib/docs'
@@ -51,7 +51,7 @@ export function Search() {
   return (
     <>
       <button type='button' className='search-trigger font-okx' onClick={openSearch} aria-keyshortcuts='/'>
-        <SearchIcon size={15} aria-hidden='true' />
+        <Icon name='search' className='hidden xl:flex' />
         <span>Search docs</span>
         <Icon name='slash' className='' />
       </button>
@@ -65,7 +65,7 @@ export function Search() {
         }}>
         <div className='search-panel font-okx'>
           <div className='search-input-wrap'>
-            <SearchIcon size={18} aria-hidden='true' />
+            <Icon name='search' />
             <input
               ref={inputRef}
               type='search'
@@ -75,7 +75,7 @@ export function Search() {
               aria-label='Search Beast docs'
             />
             <button type='button' className='search-close' onClick={closeSearch} aria-label='Close search'>
-              <X size={17} aria-hidden='true' />
+              <Icon name='close' />
             </button>
           </div>
 
@@ -85,7 +85,7 @@ export function Search() {
                 const content = (
                   <>
                     <span className='search-result-icon'>
-                      <FileText size={16} aria-hidden='true' />
+                      <Icon name='document' />
                     </span>
                     <span className='search-result-copy'>
                       <span className='search-result-label font-semibold'>{item.label}</span>
@@ -127,11 +127,11 @@ export function Search() {
           </div>
 
           <div className='search-footer'>
-            <span>
-              <kbd>↵</kbd> open
+            <span className='text-mist-500'>
+              <kbd className='bg-orange-300! font-semibold text-mist-700! border-mist-500!'>esc</kbd> close
             </span>
-            <span>
-              <kbd>esc</kbd> close
+            <span className='text-mist-500'>
+              <kbd className='bg-mist-300! font-semibold text-mist-700! border-mist-500! w-6 text-center'>↵</kbd> open
             </span>
           </div>
         </div>

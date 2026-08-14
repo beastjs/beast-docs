@@ -1,3 +1,4 @@
+import { Icon } from '@/lib/icons'
 import {
   ArrowRight,
   Braces,
@@ -163,7 +164,7 @@ export default function Home() {
             <section className='section install-section' aria-labelledby='install-title'>
               <div className='section-heading-row'>
                 <div>
-                  <span className='section-kicker'>Quick start</span>
+                  <span className='section-kicker opacity-80'>Quick start</span>
                   <h2 id='install-title'>A typed app, in one command</h2>
                 </div>
                 <Link className='text-link' href='/docs/get-started'>
@@ -186,21 +187,21 @@ export default function Home() {
                   </div>
                 </div>
                 <div className='command-block'>
-                  <span className='command-prompt font-okx' aria-hidden='true'>
+                  <span className='command-prompt font-okx dark:text-mist-500!' aria-hidden='true'>
                     $
                   </span>
                   <code>{command}</code>
-                  <CopyButton value={command} label='Copy command' />
+                  <CopyButton value={command} label='' />
                 </div>
                 <div className='install-details'>
                   <span>
-                    <CircleCheck size={14} aria-hidden='true' /> Typed starter
+                    <Icon name='checkbox-checked' /> Typed starter
                   </span>
                   <span>
-                    <CircleCheck size={14} aria-hidden='true' /> HMR ready
+                    <Icon name='checkbox-checked' /> HMR ready
                   </span>
                   <span>
-                    <CircleCheck size={14} aria-hidden='true' /> Production build
+                    <Icon name='checkbox-checked' /> Production build
                   </span>
                 </div>
               </div>
@@ -208,7 +209,7 @@ export default function Home() {
 
             <section className='section' aria-labelledby='compiler-title'>
               <div className='section-heading'>
-                <span className='section-kicker'>The compiler</span>
+                <span className='section-kicker opacity-80'>The compiler</span>
                 <h2 id='compiler-title'>Small syntax. Native output.</h2>
                 <p>
                   Beast stays deliberately narrow: it makes templates compact, then gets out of the toolchain&apos;s
@@ -227,11 +228,11 @@ export default function Home() {
               <div className='feature-grid'>
                 <CornerMarks />
                 {features.map((feature) => {
-                  const Icon = feature.icon
+                  const IconComp = feature.icon
                   return (
                     <article className='feature-card' key={feature.title}>
-                      <span className={`feature-icon ${feature.color}`}>
-                        <Icon size={17} aria-hidden='true' />
+                      <span className={`feature-icon`}>
+                        <IconComp size={17} aria-hidden='true' />
                       </span>
                       <h3>{feature.title}</h3>
                       <p>{feature.description}</p>

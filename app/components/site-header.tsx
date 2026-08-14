@@ -81,10 +81,10 @@ export function SiteHeader({ section = 'home' }: SiteHeaderProps) {
             <Icon name='github' />
           </a>
           <ThemeToggle />
-          <span className='header-divider' aria-hidden='true' />
+          {/*<span className='header-divider' aria-hidden='true' />
           <Link className='header-cta' href='/docs/get-started'>
             Get started
-          </Link>
+          </Link>*/}
           <MobileNav />
         </div>
       </div>
