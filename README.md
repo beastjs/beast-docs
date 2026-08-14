@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beast Developer Docs
 
-## Getting Started
+Documentation for Beast — indentation-first `.btsx` that compiles to native TSRX for [Octane](https://octanejs.dev) — built with Next.js 16, Tailwind, and Shiki (Tokyo Night).
 
-First, run the development server:
+## Stack
+
+- Next 16 (App Router, Turbopack), React 19, TypeScript 5
+- Tailwind 4 + `@tailwindcss/postcss`, `tailwind-merge` (`cn`)
+- `highlight.js` + custom `btsx`/`tsrx` (from `phtn/beast-ext` `highlights.scm`/`injections.scm`, Tokyo Night Dark)
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev        # http://localhost:3000
+bun run build      # 18/18 static
+bun run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Docs content — `app/lib/docs.ts`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `navigation` + `docPages` — add a section there, `orderedDocPages` and `generateStaticParams` pick it up.
+- Code blocks: `CodeBlock` (`app/components/code-block.tsx`) uses `lib/btsx-hljs.ts` (Zed grammar → `highlight.js`), theme in `app/globals.css` (`.hljs` Tokyo Night).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editors
 
-## Learn More
+- **Zed:** `phtn/beast-ext` — `extension.toml` pinned to `src/parser.c`+`src/scanner.c`, `languages/beast/*.scm`.
+- **Neovim:** `phtn/nvim-treesitter#add-beast-parser` → upstream `nvim-treesitter/nvim-treesitter` (parser `beast`, `filetype=beast` for `*.btsx`):
+  ```lua
+  -- lazy.nvim
+  {
+    "phtn/beast.ext",
+    ft = "beast",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      vim.filetype.add({ extension = { btsx = "beast" } })
+      require("nvim-treesitter.parsers").get_parser_configs().beast = {
+        install_info = { url = "https://github.com/phtn/beast-ext", files = { "src/parser.c", "src/scanner.c" }, branch = "main" },
+        filetype = "beast",
+      }
+    end
+  }
+  -- :TSInstall beast
+  ```
+  Upstream PR: https://github.com/phtn/nvim-treesitter/pull/1 → https://github.com/nvim-treesitter/nvim-treesitter/compare/main...phtn:add-beast-parser
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vercel — `next build` is static (`/`, `/_not-found`, `/docs/[[...slug]]`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Related
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Beast compiler: https://github.com/phtn/beast
+- Zed extension: https://github.com/phtn/beast-ext
+- Neovim parser PR: https://github.com/phtn/nvim-treesitter/pull/1 (commit [fb27e47](https://github.com/phtn/nvim-treesitter/pull/1/commits/fb27e477129c72421f2571316d37ca5844d61fa3))

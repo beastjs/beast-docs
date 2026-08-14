@@ -7,7 +7,7 @@ import { Search } from './search'
 import { ThemeToggle } from './theme-toggle'
 
 type SiteHeaderProps = {
-  section?: 'home' | 'docs' | 'language' | 'tooling'
+  section?: 'home' | 'docs' | 'language' | 'skills' | 'tooling' | 'examples'
 }
 
 const headerLinks = [
@@ -19,6 +19,12 @@ const headerLinks = [
     external: false
   },
   {
+    label: 'Skills',
+    href: '/docs/skills',
+    section: 'skills',
+    external: false
+  },
+  {
     label: 'Tooling',
     href: '/docs/vite',
     section: 'tooling',
@@ -26,9 +32,9 @@ const headerLinks = [
   },
   {
     label: 'Examples',
-    href: `${githubUrl}/tree/main/examples`,
+    href: '/docs/examples',
     section: 'examples',
-    external: true
+    external: false
   }
 ] as const
 
@@ -39,17 +45,27 @@ export function SiteHeader({ section = 'home' }: SiteHeaderProps) {
         <div className='site-header-left'>
           <Brand />
           <nav className='header-nav font-okx' aria-label='Primary navigation'>
-            {headerLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={section === item.section ? 'active' : undefined}
-                aria-current={section === item.section ? 'page' : undefined}
-                target={item.external ? '_blank' : undefined}
-                rel={item.external ? 'noreferrer' : undefined}>
-                {item.label}
-              </a>
-            ))}
+            {headerLinks.map((item) =>
+              item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={section === item.section ? 'active' : undefined}
+                  aria-current={section === item.section ? 'page' : undefined}
+                  target='_blank'
+                  rel='noreferrer'>
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={section === item.section ? 'active' : undefined}
+                  aria-current={section === item.section ? 'page' : undefined}>
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
 

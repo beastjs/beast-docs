@@ -8,7 +8,13 @@ export function SiteFooter() {
       <div className='footer-top'>
         <div className='footer-brand'>
           <Brand />
-          <p>A compact authoring layer for explicit, native Octane templates.</p>
+          <p>
+            A compact authoring layer for explicit, native{' '}
+            <a href='https://octanejs.dev' target='_blank' rel='noreferrer'>
+              Octane
+            </a>{' '}
+            templates.
+          </p>
         </div>
         <div className='footer-links'>
           <div>
@@ -16,14 +22,18 @@ export function SiteFooter() {
             <Link href='/docs/get-started'>Quick start</Link>
             <Link href='/docs/language'>Language</Link>
             <Link href='/docs/vite'>Vite integration</Link>
+            <Link href='/docs/examples'>Examples</Link>
           </div>
           <div>
             <p>Project</p>
             <a href={githubUrl} target='_blank' rel='noreferrer'>
               GitHub
             </a>
-            <a href={`${githubUrl}/tree/main/examples`} target='_blank' rel='noreferrer'>
-              Examples
+            <a href='https://github.com/phtn/beast-ext' target='_blank' rel='noreferrer'>
+              Zed extension
+            </a>
+            <a href='https://github.com/phtn/nvim-treesitter/tree/add-beast-parser' target='_blank' rel='noreferrer'>
+              Neovim parser
             </a>
             <a href={`${githubUrl}/blob/main/LICENSE`} target='_blank' rel='noreferrer'>
               ISC License

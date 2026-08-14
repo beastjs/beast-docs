@@ -1354,6 +1354,101 @@ a {
   white-space: pre;
 }
 
+/* highlight.js — Tokyo Night Dark (keep code-block bg via var(--code-bg), tokens from tokyo-night-dark.css) */
+.hljs {
+  background: transparent !important;
+  color: #9aa5ce;
+}
+
+.hljs-meta,
+.hljs-comment {
+  color: #565f89;
+  font-style: italic;
+}
+
+/* Red */
+.hljs-tag,
+.hljs-doctag,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-template-tag,
+.hljs-selector-pseudo,
+.hljs-selector-attr,
+.hljs-variable.language_,
+.hljs-deletion {
+  color: #f7768e;
+}
+
+/* Orange */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-number,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-link {
+  color: #ff9e64;
+}
+
+/* Yellow */
+.hljs-built_in,
+.hljs-attribute {
+  color: #e0af68;
+}
+
+/* Light blue — keywords, titles, properties */
+.hljs-keyword,
+.hljs-title.function_,
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-subst,
+.hljs-property {
+  color: #7dcfff;
+}
+
+/* Green — strings etc. */
+.hljs-quote,
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #9ece6a;
+}
+
+/* Blue */
+.hljs-code,
+.hljs-formula,
+.hljs-section {
+  color: #7aa2f7;
+}
+
+/* Magenta — attrs, operators */
+.hljs-name,
+.hljs-operator,
+.hljs-char.escape_,
+.hljs-attr {
+  color: #bb9af7;
+}
+
+/* Cyan / Green for selector-tag (tokyo-night has two, keep green) */
+.hljs-selector-tag {
+  color: #73daca;
+}
+
+.hljs-punctuation {
+  color: #c0caf5;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
 /* Feature grid */
 
 .feature-grid {

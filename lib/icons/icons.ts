@@ -28,6 +28,12 @@ export const icons = {
       '<g fill="none"><path fill="currentColor" d="M2.75 12A9.25 9.25 0 0 0 12 21.25V2.75A9.25 9.25 0 0 0 2.75 12"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21.25a9.25 9.25 0 0 0 0-18.5m0 18.5a9.25 9.25 0 0 1 0-18.5m0 18.5V2.75"/></g>',
     viewBox: '0 0 24 24',
     set: 'proicons,'
+  },
+  repo: {
+    symbol:
+      '<path fill="currentColor" d="M13 21v2.5l-3-2l-3 2V21h-.5A3.5 3.5 0 0 1 3 17.5V5a3 3 0 0 1 3-3h14a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1zm0-2h6v-3H6.5a1.5 1.5 0 0 0 0 3H7v-2h6zm6-5V4H6v10.035Q6.245 14 6.5 14zM7 5h2v2H7zm0 3h2v2H7zm0 3h2v2H7z"/>',
+    viewBox: '0 0 24 24',
+    set: 'ri'
   }
 }
 export type IconNameType = keyof typeof icons

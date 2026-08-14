@@ -29,9 +29,21 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: [
       {
         rel: 'icon',
+        type: 'image/png',
+        sizes: '96x96',
+        url: '/svg/icon1.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '180x180',
+        url: '/svg/apple-icon.png'
+      },
+      {
+        rel: 'icon',
         type: 'image/svg+xml',
-        sizes: '64x64',
-        url: '/svg/logo.svg'
+        sizes: '192x192',
+        url: '/svg/192.svg'
       }
     ],
     description:
