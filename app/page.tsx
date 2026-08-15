@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { BeastAudio } from './components/beast-audio'
 import { CompilerShowcase } from './components/compiler-showcase'
 import { CopyButton } from './components/copy-button'
 import { CornerMarks } from './components/corner-marks'
@@ -331,6 +332,7 @@ export default function Home() {
         </main>
       </div>
       <SiteFooter />
+      <BeastAudio />
     </>
   )
 }
