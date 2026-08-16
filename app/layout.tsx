@@ -18,13 +18,33 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = incomingHeaders.get('x-forwarded-host') ?? incomingHeaders.get('host') ?? 'localhost:3000'
   const protocol = incomingHeaders.get('x-forwarded-proto') ?? (host.startsWith('localhost') ? 'http' : 'https')
   const origin = `${protocol}://${host}`
-  const socialImage = `${origin}/og.png`
+  const socialImage = `/og/beast-docs-og.webp`
 
   return {
     metadataBase: new URL(origin),
     title: {
       default: 'Beast Developer Docs',
       template: '%s · Beast Docs'
+    },
+    openGraph: {
+      title: 'Beast Developer Docs',
+      description: 'Write the structure. Keep the types. Let Octane own rendering.',
+      type: 'website',
+      url: origin,
+      images: [
+        {
+          url: socialImage,
+          width: 1432,
+          height: 932,
+          alt: 'Beast Developer Docs — BTSX to TSRX'
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Beast Developer Docs',
+      description: 'Write the structure. Keep the types. Let Octane own rendering.',
+      images: [socialImage]
     },
     icons: [
       {
@@ -48,27 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     description:
       'Documentation for Beast, the indentation-first component language that compiles BTSX into native TSRX for Octane.',
-    keywords: ['Beast', 'BTSX', 'TSRX', 'Octane', 'Vite', 'TypeScript'],
-    openGraph: {
-      title: 'Beast Developer Docs',
-      description: 'Write the structure. Keep the types. Let Octane own rendering.',
-      type: 'website',
-      url: origin,
-      images: [
-        {
-          url: socialImage,
-          width: 1200,
-          height: 630,
-          alt: 'Beast Developer Docs — BTSX to TSRX'
-        }
-      ]
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Beast Developer Docs',
-      description: 'Write the structure. Keep the types. Let Octane own rendering.',
-      images: [socialImage]
-    }
+    keywords: ['Beast', 'BTSX', 'TSRX', 'Octane', 'Vite', 'TypeScript']
   }
 }
 
