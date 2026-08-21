@@ -31,6 +31,8 @@ export type DocSection = {
     headers: string[]
     rows: string[][]
   }
+  thumbnail?: { src: string; label?: string }
+  external?: { href: string; label?: string }
 }
 
 export type DocPage = {
@@ -55,7 +57,7 @@ export const navigation: NavigationSection[] = [
       {
         label: 'Quick start',
         href: '/docs/get-started',
-        description: 'Create a typed Beast application.'
+        description: 'Create a Beast application.'
       },
       {
         label: 'How it works',
@@ -105,7 +107,7 @@ export const navigation: NavigationSection[] = [
       {
         label: 'Vite integration',
         href: '/docs/vite',
-        description: 'Run Beast before Octane in memory.'
+        description: 'Beast → Octane → Vite'
       },
       {
         label: 'Tailwind integration',
@@ -133,9 +135,9 @@ export const navigation: NavigationSection[] = [
         description: 'Browse BTSX → TSRX goldens.'
       },
       {
-        label: 'Compelling',
+        label: 'Compelling Demo',
         href: 'https://compelling.phtn458.workers.dev',
-        description: 'Browse BTSX → TSRX goldens.'
+        description: 'Visit Beast compelling demo site.'
       }
     ]
   },
@@ -1655,7 +1657,7 @@ section.status-card(aria-live="polite")
       },
       {
         id: 'more',
-        title: 'More goldens',
+        title: 'Goldens',
         paragraphs: [
           'All 22 goldens follow the same BTSX → TSRX rule and are validated by `bun run check` in the Beast repo.'
         ],
@@ -1676,6 +1678,34 @@ section.status-card(aria-live="polite")
             ['shortcut', 'useEffect cleanup + block setup'],
             ['status', 'Groups + conditional badges'],
             ['transitions', 'View transitions']
+          ]
+        },
+        note: {
+          title: 'Run locally',
+          body: 'Clone `phtn/beast`, run `bun run build && bun test` to regenerate goldens, or open any `examples/*/ *.btsx` alongside its `*.tsrx` for byte-exact comparison.'
+        }
+      },
+      {
+        id: 'demo',
+        title: 'Compelling Beast Demo',
+        thumbnail: {
+          src: 'https://res.cloudinary.com/dx0heqhhe/image/upload/v1787232482/compelling-beast_han49i.svg',
+          label: 'compelling beast'
+        },
+        paragraphs: ['8 compelling Beast demos.'],
+        external: { label: 'check it out', href: 'https://compelling.phtn458.workers.dev/' },
+        table: {
+          headers: ['Title', 'Highlight'],
+          rows: [
+            ['Canvas', 'Real-Time Collaborative Canvas'],
+            ['Form', 'Adaptive Form with Validation Streams'],
+            ['Grid', 'Virtualized Masonry Grid'],
+            ['Shell', 'Isomorphic Shell with Progressive Hydration'],
+            ['Timeline', 'Timeline — Time as Dimension'],
+            ['Worker', 'Worker — Zero-Cost Threading'],
+            ['Motion', 'Motion — Animation Orchestrator'],
+            ['Streaming', 'Streaming — Edge at CDN'],
+            ['Table', 'Tanstack Table = Nuqs - shadcn filters']
           ]
         },
         note: {

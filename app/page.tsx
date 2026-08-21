@@ -141,7 +141,7 @@ export default function Home() {
                 <span>v0.1.0 · Alpha</span>
               </div>
               <h1 id='hero-title'>Beast Developer Docs</h1>
-              <p>Write components with indentation. Keep the types. Let Octane own rendering.</p>
+              <p>Build apps fast. Even faster with machines.</p>
               <div className='hero-actions'>
                 <Link href='/docs/get-started' className='button button-primary'>
                   Get started
@@ -313,7 +313,8 @@ export default function Home() {
                     href={`${githubUrl}#project-status`}
                     target='_blank'
                     rel='noreferrer'
-                    className='button button-secondary'>
+                    className='button button-secondary'
+                  >
                     Read project status
                     <ArrowRight size={15} aria-hidden='true' />
                   </a>

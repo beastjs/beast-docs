@@ -1,6 +1,7 @@
 import { Icon } from '@/lib/icons'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CodeBlock } from '../../components/code-block'
@@ -24,6 +25,17 @@ function InlineText({ text }: { text: string }) {
     .map((part, index) =>
       part.startsWith('`') && part.endsWith('`') ? <code key={`${part}-${index}`}>{part.slice(1, -1)}</code> : part
     )
+}
+function Thumbnail({ src, label = 'thumbnail' }: { src: string; label?: string }) {
+  return <Image src={src} alt={label} width={400} height={400} className='size-12 aspect-auto -mt-4' />
+}
+function ExternalLink({ label, href }: { label?: string; href: string }) {
+  return (
+    <Link href={href} className='flex items-center space-x-1 text-sm'>
+      <span className='text-blue-500 dark:text-blue-400'>{label ?? href}</span>
+      <ArrowUpRight size={12} aria-hidden='true' className='text-blue-500 animate-bounce' />
+    </Link>
+  )
 }
 
 function pageSection(page: DocPage) {
@@ -95,15 +107,19 @@ export default async function DocsPage({ params }: DocsPageProps) {
 
             {page.sections.map((section) => (
               <section className='article-section' id={section.id} key={section.id}>
-                <h2>
-                  <a href={`#${section.id}`}>{section.title}</a>
-                </h2>
+                <div className='flex items-center space-x-6'>
+                  {section.thumbnail && <Thumbnail {...section.thumbnail} />}
+                  <h2>
+                    <a href={`#${section.id}`}>{section.title}</a>
+                  </h2>
+                </div>
 
                 {section.paragraphs?.map((paragraph) => (
                   <p key={paragraph}>
                     <InlineText text={paragraph} />
                   </p>
                 ))}
+                {section.external && <ExternalLink {...section.external} />}
 
                 {section.list ? (
                   <ul className='article-list'>
