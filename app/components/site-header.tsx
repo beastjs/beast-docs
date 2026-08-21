@@ -40,7 +40,7 @@ const headerLinks = [
 
 export function SiteHeader({ section = 'home' }: SiteHeaderProps) {
   return (
-    <header className='site-header'>
+    <header suppressHydrationWarning className='site-header'>
       <div className='site-header-inner'>
         <div className='site-header-left'>
           <Brand />

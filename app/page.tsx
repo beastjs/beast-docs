@@ -132,7 +132,7 @@ export default function Home() {
       <div className='site-frame'>
         <Sidebar />
 
-        <main id='main-content' className='landing-main'>
+        <main suppressHydrationWarning id='main-content' className='landing-main'>
           <div className='blueprint-lines' aria-hidden='true' />
           <div className='landing-container'>
             <section className='hero' aria-labelledby='hero-title'>
@@ -180,10 +180,10 @@ export default function Home() {
                     <TerminalSquare size={17} aria-hidden='true' />
                   </span>
                   <div>
-                    <h3>Start with the whole pipeline configured</h3>
+                    <h3>Fully configured pipeline</h3>
                     <p>
-                      The creator wires Beast, Octane, TSRX checking, and Vite into a small project you can inspect end
-                      to end.
+                      The Beast project creator wires the Beast compiler, Octane, TSRX checking, and Vite into a project
+                      you can inspect end to end.
                     </p>
                   </div>
                 </div>

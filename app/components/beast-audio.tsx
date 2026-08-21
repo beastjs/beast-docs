@@ -50,8 +50,9 @@ export function BeastAudio() {
     const schedule = () => {
       const cb = () => tryPlay()
       // Run after browser is idle so it doesn't compete with LCP/hydration
-      const ric = (window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number })
-        .requestIdleCallback
+      const ric = (
+        window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }
+      ).requestIdleCallback
       if (ric) ric(cb, { timeout: 1500 })
       else setTimeout(cb, 400)
     }
@@ -63,5 +64,5 @@ export function BeastAudio() {
     }
   }, [])
 
-  return <audio ref={ref} src="/best.mp3" preload="metadata" hidden aria-hidden="true" />
+  return <audio ref={ref} src='/greeting.mp3' preload='metadata' hidden aria-hidden='true' />
 }

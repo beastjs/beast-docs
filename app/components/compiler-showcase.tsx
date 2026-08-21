@@ -116,7 +116,7 @@ export function CompilerShowcase() {
   const ActiveIcon = active.icon
 
   return (
-    <div className='showcase-shell'>
+    <div suppressHydrationWarning className='showcase-shell'>
       <div className='showcase-tabs' role='tablist' aria-label='Beast capabilities'>
         {examples.map((example) => {
           const Icon = example.icon
