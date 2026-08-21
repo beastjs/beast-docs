@@ -166,7 +166,7 @@ export default function Home() {
               <div className='section-heading-row'>
                 <div>
                   <span className='section-kicker opacity-80'>Quick start</span>
-                  <h2 id='install-title'>A typed app, in one command</h2>
+                  <h2 id='install-title'>Create a Beast App.</h2>
                 </div>
                 <Link className='text-link' href='/docs/get-started'>
                   Read the guide <ArrowRight size={14} aria-hidden='true' />
@@ -313,8 +313,7 @@ export default function Home() {
                     href={`${githubUrl}#project-status`}
                     target='_blank'
                     rel='noreferrer'
-                    className='button button-secondary'
-                  >
+                    className='button button-secondary'>
                     Read project status
                     <ArrowRight size={15} aria-hidden='true' />
                   </a>
