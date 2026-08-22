@@ -83,6 +83,11 @@ export const navigation: NavigationSection[] = [
         label: 'Control flow',
         href: '/docs/control-flow',
         description: 'Conditions, loops, switches, and boundaries.'
+      },
+      {
+        label: 'Continuation',
+        href: '/docs/continuation',
+        description: 'Break long lines with ~ without creating children.'
       }
     ]
   },
@@ -553,6 +558,214 @@ catch error, reset
   .error
     p Could not load profile: #{String(error)}
     button(onClick={reset}) Try again`
+        }
+      }
+    ]
+  },
+  continuation: {
+    slug: 'continuation',
+    eyebrow: 'Language',
+    title: 'Continuation lines',
+    description:
+      'Prefix an indented line with ~ to append it to the line above instead of creating a child — added in Beast 0.2.6.',
+    sections: [
+      {
+        id: 'what-it-is',
+        title: 'What it is',
+        paragraphs: [
+          'Beast is indentation-sensitive, so a physical newline normally starts a new sibling or child. A continuation line is any non-empty, non-// logical line whose first content character after its leading spaces is ~. The parser strips the ~ and one optional following space or tab, trims any additional leading whitespace, and appends the remainder to the previous logical line with a single separating space. The continuation line itself is discarded, has no children, and its indentation is otherwise ignored.',
+          'This keeps the merge independent of the surrounding tree. The merged content inherits the span of the original line for diagnostics and source maps; continuation lines do not produce separate TSRX nodes or extra indentation in generated output.'
+        ],
+        code: {
+          filename: 'CommentContinu.tsrx',
+          language: 'btsx',
+          code: `// ~ // comment is a comment continuation and is ignored
+div(className='')
+  ~ // comment
+  p Still a child of the div, not of the comment line`
+        },
+        note: {
+          title: 'Version',
+          body: 'Requires beast-tsrx 0.2.6 or newer (commit 8e7ec1f). Earlier compilers reject ~ as element text.',
+          tone: 'info'
+        }
+      },
+      {
+        id: 'rules',
+        title: 'Rules',
+        table: {
+          headers: ['Rule', 'Behavior'],
+          rows: [
+            ['Position', 'The ~ must be the first non-space character. div ~ foo is not a continuation — it emits <div>~ foo</div>.'],
+            ['Stripping', 'One space or tab after ~ is removed. ~foo and ~ foo both yield foo. Extra leading whitespace is trimmed before the join.'],
+            ['Empty / comment', '~ followed by only whitespace, or by // after trimming, is a no-op and is dropped.'],
+            ['Join', 'Otherwise the trimmed payload is joined with exactly one space: Component(items={ + ~ 0, 1  ->  Component(items={[ 0, 1'],
+            ['Chaining', 'Multiple continuations chain onto the same predecessor.'],
+            ['Orphan', 'A continuation with no predecessor fails with BEAST1004_ORPHAN_CONTINUATION.']
+          ]
+        }
+      },
+      {
+        id: 'attributes',
+        title: 'Breaking long attribute and expression lists',
+        paragraphs: [
+          'Use continuation to split long component props, className, or array literals without creating children. Each ~ line continues the opening element or expression.'
+        ],
+        code: {
+          filename: 'Button.btsx',
+          language: 'btsx',
+          code: `Button(
+  ~ tone="primary"
+  ~ disabled
+  ~ onClick={() => save()}
+  ~ ) Save`
+        }
+      },
+      {
+        id: 'attributes-array',
+        title: 'Arrays and objects',
+        code: {
+          filename: 'Card.btsx',
+          language: 'btsx',
+          code: `// Long attribute and expression lists can be split without creating children
+Component(items={[
+  ~ 0, 1, 2, 3
+  ~ ]}
+  ~ )
+
+// Equivalent to: Component(items={[ 0, 1, 2, 3 ]})`
+        }
+      },
+      {
+        id: 'attributes-tailwind',
+        title: 'Tailwind and long selectors',
+        code: {
+          filename: 'Hero.btsx',
+          language: 'btsx',
+          code: `section.hero(className="flex flex-col items-center justify-center min-h-screen px-6 py-12"
+  ~ id="hero"
+  ~ aria-label="Hero section")
+  h1(className="text-4xl font-bold tracking-tight"
+    ~ id="title") Welcome
+// → <section className="hero flex ..." id="hero" aria-label="Hero section">
+//     <h1 id="title">Welcome</h1>`
+        }
+      },
+      {
+        id: 'control-flow',
+        title: 'Control-flow headers',
+        paragraphs: [
+          'Any template header can be continued — if, elseif, each, switch, try, and dotted components.'
+        ],
+        code: {
+          filename: 'ControlFlow.btsx',
+          language: 'btsx',
+          code: `if isReady
+  ~ && hasPermission
+  p Ready
+
+each item in items
+  ~ key item.id
+  li #{item.label}
+
+switch status
+  ~ // comment continuations are no-ops everywhere
+  case "a"
+    p A
+  default
+    p Other`
+        }
+      },
+      {
+        id: 'text',
+        title: 'Text and pipe lines',
+        paragraphs: [
+          'Text content and pipe literals can also be continued. p Hello, followed by ~ world becomes p Hello, world.'
+        ],
+        code: {
+          filename: 'Text.btsx',
+          language: 'btsx',
+          code: `p Hello,
+  ~ world
+// → <p>Hello, world</p>
+
+| Long literal text that
+  ~ continues on the next physical line
+// → Long literal text that continues on the next physical line`
+        }
+      },
+      {
+        id: 'comment-empty',
+        title: 'Comment and empty continuations',
+        paragraphs: [
+          'A ~ line that is empty or a comment after the ~ is dropped and does not affect parent-child relationships.'
+        ],
+        code: {
+          filename: 'CommentEmpty.btsx',
+          language: 'btsx',
+          code: `div
+  ~ 
+  p child
+// ~ with only whitespace → no effect
+
+Theme.Provider(value={theme})
+  ~ // comment
+  p child
+// child remains child of Provider, not of the comment line`
+        }
+      },
+      {
+        id: 'diagnostics',
+        title: 'Diagnostics',
+        paragraphs: [
+          'Orphan continuations and normal indentation rules still apply. The merged line keeps the predecessor span, so errors point at the original header.'
+        ],
+        code: {
+          filename: 'Terminal',
+          language: 'text',
+          code: `~ orphan at top of file
+// → BEAST1004_ORPHAN_CONTINUATION: A continuation line starting with ~ must follow an indented parent line.
+
+div ~ foo
+// → not a continuation; emits <div>~ foo</div> because ~ is not first character`
+        },
+        table: {
+          headers: ['Code', 'When'],
+          rows: [
+            ['BEAST1004_ORPHAN_CONTINUATION', 'First logical line (after imports/props/setup) starts with ~'],
+            ['BEAST1003_TAB_INDENT', 'Any leading tab in indentation (unchanged)'],
+            ['(span)', 'Merged payload errors point at the predecessor line, not the ~ line']
+          ]
+        }
+      },
+      {
+        id: 'tsrx-output',
+        title: 'Generated TSRX',
+        paragraphs: [
+          'Continuations are erased before code generation. Example BTSX with continuations and the TSRX Beast emits:'
+        ],
+        code: {
+          filename: 'Card.btsx',
+          language: 'btsx',
+          code: `props { items }: { items: string[] }
+Card(items={[
+  ~ "a",
+  ~ "b",
+  ~ "c"
+  ~ ]}
+  ~ className="card"
+  ~ id="main") Hello`
+        }
+      },
+      {
+        id: 'tsrx-output-result',
+        title: 'Card — TSRX output',
+        code: {
+          filename: 'Card.tsrx',
+          language: 'tsrx',
+          code: `export default function Card({ items }: { items: string[] }) @{
+  <Card items={[ "a", "b", "c" ]} className="card" id="main">Hello</Card>
+}`
         }
       }
     ]
