@@ -26,6 +26,7 @@ import { Sidebar } from './components/sidebar'
 import { SiteFooter } from './components/site-footer'
 import { SiteHeader } from './components/site-header'
 import { githubUrl } from './lib/docs'
+import { getBeastRelease } from './lib/release'
 
 export const metadata: Metadata = {
   title: 'Beast Documentation',
@@ -125,7 +126,9 @@ const pipeline = [
   { label: 'Vite', caption: 'Application', icon: Zap }
 ]
 
-export default function Home() {
+export default async function Home() {
+  const release = await getBeastRelease()
+
   return (
     <>
       <SiteHeader section='home' />
@@ -138,7 +141,7 @@ export default function Home() {
             <section className='hero' aria-labelledby='hero-title'>
               <div className='hero-kicker'>
                 <span className='pulse-dot' aria-hidden='true' />
-                <span>v0.1.0 · Alpha</span>
+                <span>{release.version} · Alpha</span>
               </div>
               <h1 id='hero-title'>Beast Developer Docs</h1>
               <p>Build apps fast. Even faster with machines.</p>
@@ -306,8 +309,8 @@ export default function Home() {
                   <span className='section-kicker'>Project status</span>
                   <h2 id='status-title'>Early, focused, and tested</h2>
                   <p>
-                    Beast is alpha software with a deliberately narrow language. The compiler, project builder, Vite
-                    integration, and creator work today; the public API may still evolve.
+                    Beast {release.version} is alpha software with a deliberately narrow language. The compiler,
+                    project builder, Vite integration, and creator work today; the public API may still evolve.
                   </p>
                   <a
                     href={`${githubUrl}#project-status`}
@@ -323,7 +326,7 @@ export default function Home() {
 │ source   .btsx     │
 │ output   .tsrx     │
 │ runtime  Octane    │
-│ status   alpha     │
+│ status   ${release.version} │
 └────────────────────┘`}</pre>
                 </div>
               </div>

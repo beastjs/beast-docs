@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { githubUrl } from '../lib/docs'
+import { getBeastRelease } from '../lib/release'
 import { Brand } from './brand'
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const release = await getBeastRelease()
+
   return (
     <footer className='site-footer'>
       <div className='footer-top'>
@@ -42,7 +45,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className='footer-bottom'>
-        <span>Beast is open source and currently in alpha.</span>
+        <span>Beast {release.version} is open source and currently in alpha.</span>
         <span>
           Made for{' '}
           <Link

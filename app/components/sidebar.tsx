@@ -1,12 +1,15 @@
 import { ArrowUpRight, CircleDot } from 'lucide-react'
 import Link from 'next/link'
 import { navigation } from '../lib/docs'
+import { getBeastRelease } from '../lib/release'
 
 type SidebarProps = {
   currentHref?: string
 }
 
-export function Sidebar({ currentHref = '' }: SidebarProps) {
+export async function Sidebar({ currentHref = '' }: SidebarProps) {
+  const release = await getBeastRelease()
+
   return (
     <div className='sidebar-column'>
       <aside className='sidebar'>
@@ -45,7 +48,7 @@ export function Sidebar({ currentHref = '' }: SidebarProps) {
             <CircleDot size={13} />
           </span>
           <span>
-            <strong>Beast v0.1.0</strong>
+            <strong>Beast {release.version}</strong>
             <small>Alpha release</small>
           </span>
         </div>
