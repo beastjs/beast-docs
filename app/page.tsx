@@ -6,7 +6,6 @@ import {
   CircleCheck,
   Code2,
   FileCode2,
-  Gauge,
   GitBranch,
   IndentIncrease,
   ScanText,
@@ -88,32 +87,32 @@ const docsCards = [
     icon: ScanText
   },
   {
-    eyebrow: 'Language',
-    title: 'Control flow',
-    description: 'Author branches, keyed loops, switches, and async boundaries.',
-    href: '/docs/control-flow',
+    eyebrow: 'Skills',
+    title: 'Migrate React to Beast',
+    description: 'Audit and port complete React applications while preserving behavior and routes.',
+    href: '/docs/react-to-beast',
     icon: GitBranch
   },
   {
     eyebrow: 'Tooling',
+    title: 'CLI reference',
+    description: 'Compile components and build mixed BTSX and TSRX source trees.',
+    href: '/docs/cli',
+    icon: TerminalSquare
+  },
+  {
+    eyebrow: 'Integrations',
     title: 'Vite integration',
     description: 'Add the complete Beast and Octane transform pipeline.',
     href: '/docs/vite',
     icon: Cable
   },
   {
-    eyebrow: 'Reference',
-    title: 'Compiler API',
-    description: 'Compile source, inspect the AST, or build a project in code.',
-    href: '/docs/compiler-api',
+    eyebrow: 'Examples',
+    title: 'BTSX to TSRX examples',
+    description: 'Compare tested Beast source with the readable TSRX it generates.',
+    href: '/docs/examples',
     icon: Code2
-  },
-  {
-    eyebrow: 'Reference',
-    title: 'Diagnostics',
-    description: 'Understand stable errors, source spans, and remediation hints.',
-    href: '/docs/diagnostics',
-    icon: Gauge
   }
 ]
 
@@ -157,9 +156,9 @@ export default async function Home() {
               <div className='hero-meta' aria-label='Built with'>
                 <span>BTSX</span>
                 <i aria-hidden='true' />
-                <span>TSRX</span>
+                <span className='text-[#863eff]'>TSRX</span>
                 <i aria-hidden='true' />
-                <span>Octane</span>
+                <span className='text-[#ff415a]'>Octane</span>
                 <i aria-hidden='true' />
                 <span>Vite</span>
               </div>
@@ -275,10 +274,10 @@ export default async function Home() {
             <section className='section' aria-labelledby='explore-title'>
               <div className='section-heading'>
                 <span className='section-kicker'>Explore the docs</span>
-                <h2 id='explore-title'>Everything you need to build</h2>
+                <h2 id='explore-title'>Everything you need to build and migrate</h2>
                 <p>
-                  Start with the language, connect your toolchain, then reach for the compiler directly when you need
-                  more control.
+                  Learn the language, equip your agent, use the tooling, connect integrations, and explore tested
+                  examples.
                 </p>
               </div>
               <div className='docs-card-grid'>
@@ -309,8 +308,8 @@ export default async function Home() {
                   <span className='section-kicker'>Project status</span>
                   <h2 id='status-title'>Early, focused, and tested</h2>
                   <p>
-                    Beast {release.version} is alpha software with a deliberately narrow language. The compiler,
-                    project builder, Vite integration, and creator work today; the public API may still evolve.
+                    Beast {release.version} is alpha software with a deliberately narrow language. The compiler, project
+                    builder, Vite integration, and creator work today; the public API may still evolve.
                   </p>
                   <a
                     href={`${githubUrl}#project-status`}
@@ -325,8 +324,8 @@ export default async function Home() {
                   <pre>{`┌─ BEAST ────────────┐
 │ source   .btsx     │
 │ output   .tsrx     │
-│ runtime  Octane    │
-│ status   ${release.version} │
+│ runtime  octane    │
+│ status   ${release.version}    │
 └────────────────────┘`}</pre>
                 </div>
               </div>

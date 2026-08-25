@@ -42,6 +42,7 @@ function pageSection(page: DocPage) {
   if (page.eyebrow === 'Language') return 'language' as const
   if (page.eyebrow === 'Skills') return 'skills' as const
   if (page.eyebrow === 'Tooling') return 'tooling' as const
+  if (page.eyebrow === 'Integrations') return 'integrations' as const
   if (page.eyebrow === 'Examples') return 'examples' as const
   return 'docs' as const
 }

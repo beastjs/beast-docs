@@ -7,7 +7,7 @@ import { Search } from './search'
 import { ThemeToggle } from './theme-toggle'
 
 type SiteHeaderProps = {
-  section?: 'home' | 'docs' | 'language' | 'skills' | 'tooling' | 'examples'
+  section?: 'home' | 'docs' | 'language' | 'skills' | 'tooling' | 'integrations' | 'examples'
 }
 
 const headerLinks = [
@@ -26,8 +26,14 @@ const headerLinks = [
   },
   {
     label: 'Tooling',
-    href: '/docs/vite',
+    href: '/docs/cli',
     section: 'tooling',
+    external: false
+  },
+  {
+    label: 'Integrations',
+    href: '/docs/vite',
+    section: 'integrations',
     external: false
   },
   {

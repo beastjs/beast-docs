@@ -54,7 +54,7 @@
   --quiet-foreground: #77736f;
   --border: #383735;
   --border-strong: #4b4946;
-  --accent: oklch(44.6% 0.03 256.802);
+  --accent: oklch(0.745 0.124 244.77);
   --accent-hover: oklch(48% 0.03 256.802);
   --accent-soft: #90afd820;
   --accent-foreground: #fffaf7;
@@ -1005,7 +1005,7 @@ a {
   height: 2rem;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px dashed currentColor;
+  border: 1px dashed #777;
   border-radius: 0rem;
 }
 
@@ -1163,7 +1163,7 @@ a {
 .showcase-tabs {
   display: flex;
   overflow-x: auto;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--background-muted);
   background: var(--background-muted);
 }
 
@@ -1177,7 +1177,7 @@ a {
   justify-content: center;
   gap: 0.48rem;
   border: 0;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--background-muted);
   background: transparent;
   color: var(--muted-foreground);
   font-size: 0.78rem;

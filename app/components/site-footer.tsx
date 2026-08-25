@@ -13,7 +13,11 @@ export async function SiteFooter() {
           <Brand />
           <p>
             A compact authoring layer for explicit, native{' '}
-            <a href='https://octanejs.dev' target='_blank' rel='noreferrer'>
+            <a
+              href='https://octanejs.dev'
+              className='text-[#ff415a]! hover:underline! underline-offset-4 decoration-dashed'
+              target='_blank'
+              rel='noreferrer'>
               Octane
             </a>{' '}
             templates.
@@ -24,7 +28,7 @@ export async function SiteFooter() {
             <p>Documentation</p>
             <Link href='/docs/get-started'>Quick start</Link>
             <Link href='/docs/language'>Language</Link>
-            <Link href='/docs/vite'>Vite integration</Link>
+            <Link href='/docs/vite'>Integration</Link>
             <Link href='/docs/examples'>Examples</Link>
           </div>
           <div>
@@ -32,14 +36,17 @@ export async function SiteFooter() {
             <a href={githubUrl} target='_blank' rel='noreferrer'>
               GitHub
             </a>
-            <a href='https://github.com/phtn/beast-ext' target='_blank' rel='noreferrer'>
-              Zed extension
-            </a>
             <a href='https://github.com/phtn/nvim-treesitter/tree/add-beast-parser' target='_blank' rel='noreferrer'>
               Neovim parser
             </a>
-            <a href={`${githubUrl}/blob/main/LICENSE`} target='_blank' rel='noreferrer'>
-              ISC License
+            <a href='https://github.com/phtn/beast-ext' target='_blank' rel='noreferrer'>
+              Zed extension
+            </a>
+            <a
+              href={`https://marketplace.visualstudio.com/items?itemName=phtn.beastjs`}
+              target='_blank'
+              rel='noreferrer'>
+              VS Code extension
             </a>
           </div>
         </div>

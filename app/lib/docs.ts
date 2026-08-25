@@ -98,6 +98,11 @@ export const navigation: NavigationSection[] = [
         label: 'Beast skill',
         href: '/docs/skills',
         description: 'Build, debug, and ship Beast with the agent skill.'
+      },
+      {
+        label: 'React to Beast',
+        href: '/docs/react-to-beast',
+        description: 'Audit and migrate React applications to Beast.'
       }
     ]
   },
@@ -110,16 +115,6 @@ export const navigation: NavigationSection[] = [
         description: 'Compile files and build source trees.'
       },
       {
-        label: 'Vite integration',
-        href: '/docs/vite',
-        description: 'Beast → Octane → Vite'
-      },
-      {
-        label: 'Tailwind integration',
-        href: '/docs/tailwind',
-        description: 'Use Tailwind utilities with BTSX class shorthand and Vite.'
-      },
-      {
         label: 'Compiler API',
         href: '/docs/compiler-api',
         description: 'Compile and inspect Beast programmatically.'
@@ -128,6 +123,21 @@ export const navigation: NavigationSection[] = [
         label: 'Diagnostics',
         href: '/docs/diagnostics',
         description: 'Stable error codes and source spans.'
+      }
+    ]
+  },
+  {
+    label: 'Integrations',
+    items: [
+      {
+        label: 'Vite integration',
+        href: '/docs/vite',
+        description: 'Beast → Octane → Vite'
+      },
+      {
+        label: 'Tailwind integration',
+        href: '/docs/tailwind',
+        description: 'Use Tailwind utilities with BTSX class shorthand and Vite.'
       }
     ]
   },
@@ -829,7 +839,7 @@ beast --help`
   },
   vite: {
     slug: 'vite',
-    eyebrow: 'Tooling',
+    eyebrow: 'Integrations',
     title: 'Vite integration',
     description:
       'Compile Beast before Octane in memory while keeping normal development, HMR, SSR, and production builds.',
@@ -990,7 +1000,7 @@ Use spaces to define the template tree.`
   },
   tailwind: {
     slug: 'tailwind',
-    eyebrow: 'Tooling',
+    eyebrow: 'Integrations',
     title: 'Tailwind integration',
     description:
       'Use Tailwind CSS utilities with BTSX class attributes — Vite with Beast and Octane stays the same, PostCSS handles Tailwind.',
@@ -1405,6 +1415,69 @@ bun run build   # Vite production build`
           code: `npx --no-install tsc -p "$BEAST_SKILL_DIR/tsconfig.json"
 cp "$BEAST_SKILL_DIR/dist/beast-doctor.js" "$BEAST_SKILL_DIR/scripts/beast-doctor.cjs"
 chmod +x "$BEAST_SKILL_DIR/scripts/beast-doctor.cjs"`
+        }
+      }
+    ]
+  },
+  'react-to-beast': {
+    slug: 'react-to-beast',
+    eyebrow: 'Skills',
+    title: 'React to Beast skill',
+    description:
+      'Audit and port complete React applications to Beast BTSX → TSRX → Octane while preserving behavior, route contracts, and styling.',
+    sections: [
+      {
+        id: 'overview',
+        title: 'What the skill does',
+        paragraphs: [
+          'The React to Beast skill inventories an existing React application, identifies migration risks and compatibility boundaries, and guides the port in dependency-safe slices. It keeps behavior, routes, data flow, and visual styling explicit throughout the migration.',
+          'Use it for applications built with Vite, Create React App, React Router, TanStack Router, Remix, or Next.js. Tailwind is the default styling target, with pure CSS available when that better matches the source application.'
+        ],
+        external: {
+          href: 'https://www.skills.sh/phtn/react-to-beast',
+          label: 'View React to Beast on skills.sh'
+        },
+        note: {
+          title: 'Choose the right skill',
+          body: 'Use React to Beast for application migrations. Use the Beast skill for routine BTSX authoring, compilation, diagnostics, and builds.'
+        }
+      },
+      {
+        id: 'installation',
+        title: 'Installation',
+        paragraphs: ['Install the skill from its GitHub repository with the Skills CLI.'],
+        code: {
+          filename: 'Terminal',
+          language: 'shell',
+          code: `npx skills add https://github.com/phtn/react-to-beast --skill react-to-beast`
+        },
+        table: {
+          headers: ['Resource', 'Location'],
+          rows: [
+            ['Skills directory', 'https://www.skills.sh/phtn/react-to-beast'],
+            ['Skill page', 'https://www.skills.sh/phtn/react-to-beast/react-to-beast'],
+            ['Repository', 'https://github.com/phtn/react-to-beast']
+          ]
+        },
+        note: {
+          title: 'Verification',
+          body: 'After installation, confirm `npx skills list` shows `react-to-beast`.'
+        }
+      },
+      {
+        id: 'workflow',
+        title: 'Migration workflow',
+        list: [
+          'Inventory the full application before editing source files',
+          'Choose the target architecture, styling strategy, and route contract',
+          'Move the smallest dependency-safe component or route slice first',
+          'Replace React-only behavior with verified Octane APIs or a documented compatibility boundary',
+          'Compile BTSX, run the target typecheck and build, then verify behavior and URL parity',
+          'Record unsupported APIs, retained React boundaries, and deliberate visual differences'
+        ],
+        note: {
+          title: 'Migration evidence',
+          body: 'Treat the generated inventory as a migration map, not proof of compatibility. Confirm ambiguous findings in the source before acting.'
         }
       }
     ]
