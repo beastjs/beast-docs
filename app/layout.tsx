@@ -34,8 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           url: socialImage,
-          width: 1432,
-          height: 932,
+          width: 1578,
+          height: 996,
           alt: 'Beast Developer Docs — BTSX to TSRX'
         }
       ]
