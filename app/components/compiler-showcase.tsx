@@ -79,7 +79,7 @@ empty
     id: 'tooling',
     label: 'Tooling',
     title: 'Use the tools you know',
-    description: 'Beast runs before Octane in Vite, with normal imports, HMR, SSR, and production builds.',
+    description: 'Beast runs before Octane in Vite, Rspack, or Rsbuild with normal imports, SSR, and production builds.',
     icon: Cable,
     input: {
       filename: 'vite.config.ts',

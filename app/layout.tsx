@@ -68,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     description:
       'Documentation for Beast, the indentation-first component language that compiles BTSX into native TSRX for Octane.',
-    keywords: ['Beast', 'BTSX', 'TSRX', 'Octane', 'Vite', 'TypeScript']
+    keywords: ['Beast', 'BTSX', 'TSRX', 'Octane', 'Vite', 'Rspack', 'Rsbuild', 'TypeScript']
   }
 }
 

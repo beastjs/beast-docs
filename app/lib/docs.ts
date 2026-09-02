@@ -135,6 +135,16 @@ export const navigation: NavigationSection[] = [
         description: 'Beast → Octane → Vite'
       },
       {
+        label: 'Rspack integration',
+        href: '/docs/rspack',
+        description: 'Use Beast and Octane with Rspack.'
+      },
+      {
+        label: 'Rsbuild integration',
+        href: '/docs/rsbuild',
+        description: 'Use Beast and Octane with Rsbuild.'
+      },
+      {
         label: 'Tailwind integration',
         href: '/docs/tailwind',
         description: 'Use Tailwind utilities with BTSX class shorthand and Vite.'
@@ -194,12 +204,12 @@ export const docPages: Record<string, DocPage> = {
         id: 'what-is-beast',
         title: 'What is Beast?',
         paragraphs: [
-          'Beast is a small, source-located compiler for authoring TSRX components without closing tags. It owns a compact authoring layer, then hands generated TSRX to the existing Octane and Vite toolchain.',
-          'It does not replace TypeScript, TSRX, Octane, or Vite. Embedded TypeScript stays intact, generated output stays inspectable, and Octane remains the authority for runtime compilation.'
+          'Beast is a small, source-located compiler for authoring TSRX components without closing tags. It owns a compact authoring layer, then hands generated TSRX to Octane and the selected Vite, Rspack, or Rsbuild toolchain.',
+          'It does not replace TypeScript, TSRX, Octane, or your bundler. Embedded TypeScript stays intact, generated output stays inspectable, and Octane remains the authority for runtime compilation.'
         ],
         note: {
           title: 'Alpha software',
-          body: 'The compiler, recursive builder, Vite integration, and project creator are working and tested. The language and public API may still change before a stable release.',
+          body: 'The compiler, recursive builder, Vite, Rspack, and Rsbuild integrations, and project creator are working and tested. The language and public API may still change before a stable release.',
           tone: 'warning'
         }
       },
@@ -212,7 +222,7 @@ export const docPages: Record<string, DocPage> = {
             ['BTSX compiler', 'Indentation-based components compiled to native TSRX'],
             ['Native control flow', 'Octane conditions, loops, switches, and boundaries'],
             ['Project builder', 'Recursive mixed BTSX and TSRX source trees'],
-            ['Vite integration', 'In-memory compilation with HMR and production builds'],
+            ['Bundler integrations', 'Vite, Rspack, and Rsbuild pipelines with development and production builds'],
             ['Diagnostics', 'Stable codes with filenames, source spans, and hints']
           ]
         }
@@ -239,18 +249,18 @@ main.greeting
     slug: 'get-started',
     eyebrow: 'Get started',
     title: 'Quick start',
-    description: 'Scaffold a typed Beast, Octane, and Vite application, then run it locally.',
+    description: 'Scaffold a typed Beast and Octane application with your preferred bundler and UI library.',
     sections: [
       {
         id: 'requirements',
         title: 'Requirements',
         paragraphs: [
-          'Use Node.js 22.22.2 or newer and a current stable release of Bun. The project creator configures Beast and Octane as one Vite compilation pipeline.'
+          'Use Node.js 22.22.2 or newer and a current stable release of Bun. The project creator configures Beast and Octane for the selected Vite, Rspack, or Rsbuild pipeline.'
         ],
         list: [
           'Node.js 22.22.2 or newer',
           'Bun (current stable)',
-          'A modern browser for the generated Vite application'
+          'A modern browser for the generated application'
         ]
       },
       {
@@ -273,7 +283,8 @@ bun run dev`
         id: 'what-you-get',
         title: 'What the starter includes',
         list: [
-          'Beast and Octane configured in a single Vite pipeline',
+          'Beast and Octane configured for the selected Vite, Rspack, or Rsbuild pipeline',
+          'The selected Octane-native Base UI, Radix, or shadcn package',
           'A typed App.btsx component',
           'TSRX-aware checking through tsrx-tsc',
           'Development, build, preview, type-check, and combined check scripts',
@@ -286,10 +297,13 @@ bun run dev`
         table: {
           headers: ['Option', 'Effect'],
           rows: [
+            ['--bundler NAME', 'Select vite, rspack, or rsbuild without the interactive prompt'],
+            ['--ui NAME', 'Select base-ui, radix, or shadcn without the interactive prompt'],
             ['--no-install', 'Write the project without running bun install'],
             ['--no-git', 'Skip git init'],
             ['--force', 'Write known template files into a non-empty directory'],
-            ['-h, --help', 'Print command help']
+            ['-h, --help', 'Print command help'],
+            ['--tailwind', 'Add Tailwind CSS; selecting shadcn enables it automatically']
           ]
         }
       }
@@ -299,13 +313,13 @@ bun run dev`
     slug: 'how-it-works',
     eyebrow: 'Get started',
     title: 'How Beast works',
-    description: 'Beast turns source-located BTSX into readable TSRX before Octane and Vite take over.',
+    description: 'Beast turns source-located BTSX into readable TSRX before Octane and the selected bundler take over.',
     sections: [
       {
         id: 'pipeline',
         title: 'The compilation pipeline',
         paragraphs: [
-          'The indentation-aware parser creates a source-located Beast AST. The generator then emits native TSRX, which Octane validates and lowers before Vite adds the module to the application graph.'
+          'The indentation-aware parser creates a source-located Beast AST. The generator then emits native TSRX, which Octane validates and lowers before Vite, Rspack, or Rsbuild adds the module to the application graph.'
         ],
         list: [
           '.btsx source',
@@ -313,7 +327,7 @@ bun run dev`
           'Source-located Beast AST',
           'Readable .tsrx output',
           'Octane compiler',
-          'Vite module graph'
+          'Vite / Rspack / Rsbuild graph'
         ]
       },
       {
@@ -794,7 +808,7 @@ Card(items={[
           language: 'text',
           code: `beast compile <input.btsx> [options]
 beast <input.btsx> [output.tsrx] [options]
-beast build [source-directory] [options]
+beast build [source-directory] [options] [--watch]
 beast --help`
         }
       },
@@ -833,6 +847,23 @@ beast --help`
         note: {
           title: 'Safe cleanup',
           body: 'Beast only removes stale generated TSRX paths recorded in the previous manifest. It never removes untracked files.'
+        }
+      },
+      {
+        id: 'build-options',
+        title: 'Build options',
+        table: {
+          headers: ['Argument or option', 'Description', 'Default'],
+          rows: [
+            ['source-directory', 'Root recursively searched for .btsx and .tsrx', 'Current directory'],
+            ['--out-dir PATH', 'Mirrored destination for generated TSRX', '<source-directory>/.beast'],
+            ['--no-validate', 'Skip validation of generated and native TSRX', 'Validation enabled'],
+            ['--watch', 'Rebuild after changes and recover after compile errors', 'Disabled']
+          ]
+        },
+        note: {
+          title: 'Watch behavior',
+          body: 'Watch mode debounces filesystem bursts, serializes builds, reports failed rebuilds without exiting, and resumes on the next source change.'
         }
       }
     ]
@@ -890,6 +921,94 @@ import { NativePanel } from "./NativePanel.tsrx";`
       }
     ]
   },
+  rspack: {
+    slug: 'rspack',
+    eyebrow: 'Integrations',
+    title: 'Rspack integration',
+    description: 'Compile Beast with Octane’s low-level Rspack plugin, including watch, SSR, hydration, and composed source maps.',
+    sections: [
+      {
+        id: 'install',
+        title: 'Install the supported toolchain',
+        code: {
+          filename: 'Terminal',
+          language: 'shell',
+          code: `npm install octane@0.2.0
+npm install --save-dev @rspack/core@^2 @octanejs/rspack-plugin@0.1.47`
+        }
+      },
+      {
+        id: 'configure',
+        title: 'Configure the adapter',
+        code: {
+          filename: 'rspack.config.mjs',
+          language: 'js',
+          code: `import { beastOctane } from "beast-tsrx/rspack";
+
+export default {
+  entry: "./src/main.ts",
+  plugins: [beastOctane({ octane: { strong: true } })],
+};`
+        }
+      },
+      {
+        id: 'behavior',
+        title: 'What the adapter handles',
+        paragraphs: [
+          'The adapter compiles .btsx, leaves native .tsrx and compiler-owned helpers to Octane, selects client or server output from the Rspack target, and registers source dependencies with Rspack’s cache and watcher.',
+          'Hydration resolution prefers real .tsrx files and falls back to the originating .btsx module. It recognizes .mjs, .mts, .cjs, and .cts modules and forwards composed BTSX-to-JavaScript source maps.'
+        ],
+        note: {
+          title: 'Advanced configuration',
+          body: 'Use the exported `beast()` or `BeastRspackPlugin` only when the configuration already installs `OctaneRspackPlugin`.'
+        }
+      }
+    ]
+  },
+  rsbuild: {
+    slug: 'rsbuild',
+    eyebrow: 'Integrations',
+    title: 'Rsbuild integration',
+    description: 'Compose Beast with Octane’s full Rsbuild compiler and application plugin.',
+    sections: [
+      {
+        id: 'install',
+        title: 'Install the supported toolchain',
+        code: {
+          filename: 'Terminal',
+          language: 'shell',
+          code: `npm install octane@0.2.0 @octanejs/rsbuild-plugin@0.1.47
+npm install --save-dev @rsbuild/core@^2`
+        }
+      },
+      {
+        id: 'configure',
+        title: 'Configure the adapter',
+        code: {
+          filename: 'rsbuild.config.ts',
+          language: 'ts',
+          code: `import { defineConfig } from "@rsbuild/core";
+import { beastOctane } from "beast-tsrx/rsbuild";
+
+export default defineConfig({
+  plugins: beastOctane({ octane: { strong: true } }),
+});`
+        }
+      },
+      {
+        id: 'behavior',
+        title: 'Routes and environments',
+        paragraphs: [
+          'Without Octane routes, the adapter preserves ordinary Rsbuild entries. With octane.config.ts, render routes can point directly at .btsx modules and use Octane’s browser hydration and Node SSR environments.',
+          'Inline compiler options plus project Strong-mode and renderer configuration are forwarded to the BTSX transform.'
+        ],
+        note: {
+          title: 'Advanced configuration',
+          body: 'Use the exported Rsbuild `beast()` plugin alone when `pluginOctane()` is already present.'
+        }
+      }
+    ]
+  },
   'compiler-api': {
     slug: 'compiler-api',
     eyebrow: 'Tooling',
@@ -914,7 +1033,26 @@ const result = compileBeastResult(source, {
   filename: "Card.btsx",
 });
 
-console.log(result.ast, result.code, result.diagnostics);`
+console.log(result.ast, result.code, result.map, result.diagnostics);`
+        }
+      },
+      {
+        id: 'watch-project',
+        title: 'Watch a project',
+        code: {
+          filename: 'watch.ts',
+          language: 'ts',
+          code: `import { watchBeastProject } from "beast-tsrx";
+
+const watcher = watchBeastProject({
+  root: "src",
+  outDir: ".beast",
+  onBuild: (result) => console.log(result.generated),
+  onError: (error) => console.error(error),
+});
+
+await watcher.ready;
+// Later: await watcher.close();`
         }
       },
       {
@@ -946,11 +1084,29 @@ console.log(result.manifestPath, result.removed);`
           headers: ['Export', 'Purpose'],
           rows: [
             ['compileBeast()', 'Compile BTSX and return TSRX code'],
-            ['compileBeastResult()', 'Return code, AST, and diagnostics'],
+            ['compileBeastResult()', 'Return code, version 3 source map, AST, and diagnostics'],
             ['parse()', 'Parse BTSX into the public Beast AST'],
             ['buildBeastProject()', 'Compile and validate a recursive source tree'],
+            ['watchBeastProject()', 'Watch a source tree with recoverable, serialized rebuilds'],
+            ['resolveProjectPath()', 'Resolve project-relative configuration paths'],
             ['BeastCompileError', 'Structured error carrying a stable diagnostic'],
-            ['beastOctane()', 'Complete Vite integration for mixed projects']
+            ['beastOctane()', 'Complete integration from the Vite, Rspack, or Rsbuild adapter subpath']
+          ]
+        }
+      },
+      {
+        id: 'compatibility',
+        title: 'Supported toolchain versions',
+        table: {
+          headers: ['Tool', 'Supported version'],
+          rows: [
+            ['Node.js', '>=22.22.2'],
+            ['TypeScript', '^5.9.3'],
+            ['TSRX TypeScript plugin', '0.3.129'],
+            ['Octane', '0.2.0'],
+            ['Vite', '^8.0.16'],
+            ['Octane Rspack/Rsbuild plugins', '0.1.47'],
+            ['Rspack / Rsbuild', '^2.0.0']
           ]
         }
       }
@@ -1003,13 +1159,13 @@ Use spaces to define the template tree.`
     eyebrow: 'Integrations',
     title: 'Tailwind integration',
     description:
-      'Use Tailwind CSS utilities with BTSX class attributes — Vite with Beast and Octane stays the same, PostCSS handles Tailwind.',
+      'Use Tailwind CSS utilities with BTSX class attributes through the selected bundler’s adapter.',
     sections: [
       {
         id: 'overview',
         title: 'How it fits',
         paragraphs: [
-          'Beast normalizes `class` to `className` and merges attribute values, so Tailwind utilities work natively. No Beast plugin option is needed — add Tailwind as a PostCSS step and keep `beastOctane()` as the Vite plugin.',
+          'Beast normalizes `class` to `className` and merges attribute values, so Tailwind utilities work natively. The creator can configure Tailwind through the selected Vite, Rspack, or Rsbuild adapter; choosing shadcn enables it automatically.',
           'For consistency, this guide uses `className="..."` for Tailwind utilities. `class="..."` is also accepted and normalized to `className`. Do not use selector shorthands for utilities (`element.tw-class`) — use `element(className="...")`.'
         ],
         table: {
@@ -1159,7 +1315,7 @@ span(className={cn("rounded-full px-3 py-1 text-xs", variant === "active" && "bg
         id: 'migration',
         title: 'Migrating the starter',
         paragraphs: [
-          "The `create-beast` starter ships with plain `src/style.css`. To migrate an existing project, replace its content with `@import 'tailwindcss';` and keep your overrides below, add `postcss.config.mjs`, and run the install command above — no Vite config change."
+          "For an existing Vite project, replace `src/style.css` with `@import 'tailwindcss';` plus your overrides, add `postcss.config.mjs`, and run the install command above. For a new project, pass `--tailwind`; shadcn enables Tailwind automatically."
         ],
         list: [
           'Keep `beastOctane()` as the only Vite plugin',

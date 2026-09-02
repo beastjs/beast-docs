@@ -30,7 +30,7 @@ import { getBeastRelease } from './lib/release'
 export const metadata: Metadata = {
   title: 'Beast Documentation',
   description:
-    'Documentation for Beast, the indentation-first component language that compiles BTSX into native TSRX for O',
+    'Documentation for Beast, the indentation-first component language that compiles BTSX into native TSRX for Octane.',
   icons: [
     {
       rel: 'icon',
@@ -64,8 +64,8 @@ const features = [
     color: 'violet'
   },
   {
-    title: 'Made for Vite',
-    description: 'Compile in memory before Octane, with normal imports, HMR, SSR transforms, and production builds.',
+    title: 'Bring your bundler',
+    description: 'Use Vite, Rspack, or Rsbuild with Octane, including HMR, SSR transforms, and production builds.',
     icon: Zap,
     color: 'orange'
   }
@@ -75,7 +75,7 @@ const docsCards = [
   {
     eyebrow: 'Start here',
     title: 'Create your first Beast app',
-    description: 'Scaffold a typed BTSX, Octane, and Vite project with Bun.',
+    description: 'Choose Vite, Rspack, or Rsbuild plus an Octane-native UI library.',
     href: '/docs/get-started',
     icon: Sparkles
   },
@@ -102,8 +102,8 @@ const docsCards = [
   },
   {
     eyebrow: 'Integrations',
-    title: 'Vite integration',
-    description: 'Add the complete Beast and Octane transform pipeline.',
+    title: 'Bundler integrations',
+    description: 'Connect Beast and Octane to Vite, Rspack, or Rsbuild.',
     href: '/docs/vite',
     icon: Cable
   },
@@ -122,7 +122,7 @@ const pipeline = [
   { label: 'Beast AST', caption: 'Source-located', icon: Workflow },
   { label: '.tsrx', caption: 'Readable output', icon: Code2 },
   { label: 'Octane', caption: 'Validation', icon: CircleCheck },
-  { label: 'Vite', caption: 'Application', icon: Zap }
+  { label: 'Bundler', caption: 'Vite / Rspack / Rsbuild', icon: Zap }
 ]
 
 export default async function Home() {
@@ -160,7 +160,7 @@ export default async function Home() {
                 <i aria-hidden='true' />
                 <span className='text-[#ff415a]'>Octane</span>
                 <i aria-hidden='true' />
-                <span>Vite</span>
+                <span>Vite / Rspack / Rsbuild</span>
               </div>
             </section>
 
@@ -184,8 +184,8 @@ export default async function Home() {
                   <div>
                     <h3>Fully configured pipeline</h3>
                     <p>
-                      The Beast project creator wires the Beast compiler, Octane, TSRX checking, and Vite into a project
-                      you can inspect end to end.
+                      The Beast project creator wires the compiler, Octane, TSRX checking, your chosen bundler, and an
+                      Octane-native UI library into a project you can inspect end to end.
                     </p>
                   </div>
                 </div>
@@ -309,7 +309,7 @@ export default async function Home() {
                   <h2 id='status-title'>Early, focused, and tested</h2>
                   <p>
                     Beast {release.version} is alpha software with a deliberately narrow language. The compiler, project
-                    builder, Vite integration, and creator work today; the public API may still evolve.
+                    builder, bundler integrations, and creator work today; the public API may still evolve.
                   </p>
                   <a
                     href={`${githubUrl}#project-status`}
